@@ -9,6 +9,7 @@ export default function Admin() {
   //states
   const [shownav, setShowNav] = useState(true);
   const [showNavIcon, setShowNavIcon] = useState(false);
+  const [users, setUsers] = useState();
   const [balances, setBalances] = useState([
     {
       UserId: 1111,
@@ -49,33 +50,30 @@ export default function Admin() {
   const [investTransactions, setInvestTransactions] = useState();
 
   //useEffects
-  useEffect(() => {
-    const retrieveBalances = async () => {
-      try {
-        const response = await axios.get(
-          `${windowName}balance/dashboardAdminBalance`
-        );
-        const { balances } = response.data;
-        setBalances(balances);
-        console.log("Retrieved balances:", balances);
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${windowName}user/Users`);
+        const { users } = response.data;
+        setUsers(users);
+        setBalances(users);
         // Calculate the sum of all balances
         let totalBalance = 0;
-        balances.forEach((balance) => {
-          totalBalance += balance.mainBalance;
+        users.forEach((amount) => {
+          totalBalance += amount.balance;
         });
 
         // Set the calculated balance state
         setCalculatedBalance(totalBalance);
         console.log("Calculated balance:", totalBalance);
+        console.log("Fetched users:", balances);
       } catch (error) {
-        console.error("Error retrieving balances:", error);
+        console.error("Error fetching users:", error);
       }
     };
 
-    retrieveBalances(); // Call retrieveBalances when component mounts
-
-    // No cleanup is needed since this effect doesn't have any dependencies
+    fetchUsers();
   }, []);
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -255,30 +253,36 @@ export default function Admin() {
                 gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
               }}
             >
-              <div className="wall-o">
-                <p>
-                  <i class="ti-stats-up" style={{ color: "green" }}></i>
-                  Investments
-                </p>
+              <Link to={"/adminInvestment"}>
+                <div className="wall-o">
+                  <p>
+                    <i class="ti-stats-up" style={{ color: "green" }}></i>
+                    Investments
+                  </p>
 
-                <h1>{investTransactions}</h1>
-              </div>
-              <div className="wall-o">
-                <p>
-                  <i class="ti-wallet" style={{ color: "green" }}></i>
-                  Withdrawals
-                </p>
+                  <h1>{investTransactions}</h1>
+                </div>
+              </Link>
+              <Link to={"/adminWithdrawal"}>
+                <div className="wall-o">
+                  <p>
+                    <i class="ti-wallet" style={{ color: "green" }}></i>
+                    Withdrawals
+                  </p>
 
-                <h1>{withdrawTransactions}</h1>
-              </div>
-              <div className="wall-o">
-                <p>
-                  <i class="ti-briefcase" style={{ color: "red" }}></i>
-                  Deposits
-                </p>
+                  <h1>{withdrawTransactions}</h1>
+                </div>
+              </Link>
+              <Link to={"/adminDeposit"}>
+                <div className="wall-o">
+                  <p>
+                    <i class="ti-briefcase" style={{ color: "red" }}></i>
+                    Deposits
+                  </p>
 
-                <h1>{depositTransactions}</h1>
-              </div>
+                  <h1>{depositTransactions}</h1>
+                </div>
+              </Link>
             </div>
             <div className="heading-text" style={{ marginTop: "30px" }}>
               <h1>#Assets </h1>
