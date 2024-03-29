@@ -1,0 +1,50 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("flaticon4f57.ttf?28fa145d51e1dee0ad5e5072b58ee4e3") format("truetype"),
+url("flaticon4f57.woff?28fa145d51e1dee0ad5e5072b58ee4e3") format("woff"),
+url("flaticon4f57.woff2?28fa145d51e1dee0ad5e5072b58ee4e3") format("woff2"),
+url("flaticon4f57.eot?28fa145d51e1dee0ad5e5072b58ee4e3#iefix") format("embedded-opentype"),
+url("flaticon4f57.svg?28fa145d51e1dee0ad5e5072b58ee4e3#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-ethereum:before {
+    content: "\f101";
+}
+.flaticon-litecoin:before {
+    content: "\f102";
+}
+.flaticon-bitcoin:before {
+    content: "\f103";
+}
+.flaticon-bitcoin-1:before {
+    content: "\f104";
+}
+.flaticon-bitcoin-2:before {
+    content: "\f105";
+}
+.flaticon-comparison:before {
+    content: "\f106";
+}
+.flaticon-crowdfunding:before {
+    content: "\f107";
+}
+.flaticon-bitcoin-3:before {
+    content: "\f108";
+}
+.flaticon-bitcoin-wallet:before {
+    content: "\f109";
+}
+.flaticon-blockchain:before {
+    content: "\f10a";
+}

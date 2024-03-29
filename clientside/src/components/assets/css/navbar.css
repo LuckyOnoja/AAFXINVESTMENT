@@ -1,0 +1,157 @@
+.navLogo {
+  width: 30%;
+}
+.pr-nav i {
+  color: white;
+  align-self: center;
+}
+.navbtn {
+  display: flex;
+  justify-content: space-around;
+  width: 40%;
+}
+.navbtn button {
+  padding: 10px 13px !important;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+  background: transparent;
+  border: none;
+}
+.links {
+  padding-top: 20px;
+
+  display: flex;
+}
+.links .link {
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  padding: 10px !important;
+}
+@media (max-width: 768px) {
+  .navLogo {
+    width: 60%;
+  }
+  .links {
+    position: fixed;
+    right: 0%;
+    top: 0%;
+    width: 70%;
+    background-color: black;
+    display: block;
+    height: 100vh;
+  }
+  .links .var {
+    width: 100%;
+    margin-left: 2px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+
+    padding: 20px;
+  }
+  .links .var:hover {
+    background: linear-gradient(to right, black, #ff2c5f);
+  }
+  .links .var:active {
+    opacity: 0.8;
+  }
+  .links .link {
+    font-size: 1rem;
+  }
+  .links .link:hover {
+    color: white;
+  }
+}
+.colorAdjust {
+  padding: 50px;
+  background-color: white;
+  color: black;
+}
+.colorAdjust h1,
+h6 {
+  text-align: start;
+}
+.colorAdjust h1 {
+  font-size: 3rem;
+}
+.subColorAdjust p {
+  margin: 10px;
+}
+@media (max-width: 768px) {
+}
+
+/* the styles  below are for the new invest elements */
+.investshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2222;
+  -webkit-backdrop-filter: blur(25px);
+  backdrop-filter: blur(25px);
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+.showt {
+  display: flex;
+}
+.container-in {
+  position: relative;
+  display: flex;
+  /* transform: scale(0); */
+  align-items: center;
+  /* justify-content: center; */
+  width: 800px;
+  height: auto;
+  border-radius: 20px;
+  background-color: white;
+  padding: 20px;
+  flex-direction: column;
+  border: inset 2px solid var(--grey);
+
+  transition: all 0.5s ease-in-out;
+}
+.sells p {
+  margin-bottom: 10px !important;
+  font-weight: 600 !important;
+}
+.alertis {
+  position: relative;
+  display: flex;
+  width: 100%;
+  font-weight: 600;
+  margin-top: 20px !important;
+  margin-left: 10px !important;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Styling for file input in deposit.js */
+.file-input-container {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.file-input-container input[type="file"] {
+  width: 100%;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-input-container label {
+  cursor: pointer;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  margin-right: 10px;
+}

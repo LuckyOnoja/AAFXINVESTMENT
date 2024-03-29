@@ -1,0 +1,219 @@
+*{
+    box-sizing: border-box;
+}
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+body {
+    margin: 0;
+    font-family: Open Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+     color: #454545;
+    text-align: left;
+    background-color:#f9fafc;
+}
+img {
+    max-width: 100%;
+}
+
+input:focus,
+select:focus,
+button:focus,
+textarea:focus {
+    outline: none;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    outline: none;
+    color: #ffffff;
+}
+
+ul,
+ol {
+    padding: 0;
+    margin: 0;
+}
+li{
+    list-style:none;
+}
+hr{
+    max-width: 80%;
+}
+/*hero-intro*/
+.hero-intro{
+    width: 100%;
+    height: auto;
+    padding:30px 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+     background-color:#ffffff;
+      -webkit-box-shadow:6px 11px 41px -28px #a99de7;
+     box-shadow: 6px 11px 41px -28px #a99de7;
+}
+@media screen and (min-width:991px){
+    .hero-intro{
+        padding:70px 20px !important;
+    }
+}
+.hero-intro span{
+     display: inline-flex;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(109deg,#8c8fe5,#8dc9f3);
+}
+
+.hero-intro h1{
+    margin: 0;
+    padding: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+
+/*advert-section*/
+.advert-section{
+   width: 100%;
+   height: auto;
+   margin-top: 20px;
+}
+.advert-section-banner{
+    width:100px;
+    height: 100px;
+    border-radius: 100%;
+    background: linear-gradient(109deg,#8c8fe5,#8dc9f3);
+    margin-bottom: 10px;
+    z-index: 2;
+    position: relative;
+}
+.advert-section-banner:before{
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #85ceff;
+    border-radius:50%;
+    margin-left:100px;
+}
+.advert-section-banner:after{
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ee2f79;
+    opacity: 0.7;
+    border-radius:50%;
+    margin-left:130px;
+    margin-top: -30px;
+}
+/*message-sec*/
+.message-sec{
+    width: 100%;
+    height: auto;
+}
+.form-container{
+    width: 100%;
+    height: auto;
+    padding:20px;
+     background-color:#ffffff;
+      -webkit-box-shadow:6px 11px 41px -28px #a99de7;
+     box-shadow: 6px 11px 41px -28px #a99de7;
+}
+.form-header{
+    width: 100%;
+    height: auto;
+}
+.form-header h3{
+    margin: 0;
+    padding: 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight:600;
+    display: flex;
+    align-items: center;
+    border-radius:3px;
+}
+.form-header h3 i{
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(109deg,#8c8fe5,#8dc9f3);
+    margin-left: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.site-form{
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+.form-input{
+    width: 100%;
+    height:auto;
+    margin-top:10px;
+}
+.form-input input{
+    width: 100%;
+    height: auto;
+    padding: 12px;
+    border-radius:3px;
+    border:1px solid #e1e7f0;
+    background-color: transparent;
+}
+.form-input textarea {
+    width: 100%;
+    height: 150px;
+    border:1px solid #e1e7f0;
+    border-radius: 3px;
+    padding: 12px;
+    resize: none;
+    color: #ffffff;
+    background-color: transparent;
+    transition: all 0.5s ease-in-out;
+}
+.form-input textarea::placeholder,
+.form-input input::placeholder{
+     color: #454545;
+}
+.form-input textarea:focus,
+.form-input input:focus{
+    border:1px solid #8c8fe5;
+    transition: all 0.5s ease-in-out;
+}
+.form-input textarea:focus::-webkit-input-placeholder,
+.form-input input:focus::-webkit-input-placeholder {
+    color: #8c8fe5;
+}
+.form-input input[type="submit"]{
+    background: linear-gradient(109deg,#8c8fe5,#8dc9f3);
+    border:1px solid transparent;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.form-input input[type="submit"]:hover{
+    transition: all 0.2s ease; 
+     background: linear-gradient(109deg,#787ae0,#5bb4ee);
+    border: 1px solid  transparent;
+}
