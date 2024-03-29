@@ -66,8 +66,6 @@ export default function Admin() {
 
         // Set the calculated balance state
         setCalculatedBalance(totalBalance);
-        console.log("Calculated balance:", totalBalance);
-        console.log("Fetched users:", balances);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -182,9 +180,7 @@ export default function Admin() {
               />
               <div className="text-greetings">
                 <h1>Admin</h1>
-                <i class="icon-bell">
-                  <span>4</span>
-                </i>
+                <i class="icon-bell"></i>
               </div>
             </div>
             <ul>

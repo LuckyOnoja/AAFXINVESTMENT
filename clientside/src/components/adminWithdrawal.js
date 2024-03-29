@@ -156,9 +156,7 @@ export default function AdminWithdrawal() {
               />
               <div className="text-greetings">
                 <h1>Admin</h1>
-                <i class="icon-bell">
-                  <span>4</span>
-                </i>
+                <i class="icon-bell"></i>
               </div>
             </div>
             <ul>

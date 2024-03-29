@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 export default function Footer() {
-    //variables
-    const windowName = process.env.REACT_APP_SERVER_NAME;
+  //variables
+  const windowName = process.env.REACT_APP_SERVER_NAME;
   return (
     <footer className="site-footer">
       <div className="pr-site-container">
@@ -70,7 +70,7 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-            
+
             <div className="item comment-card">
               <div className="top-item">
                 <img
@@ -106,7 +106,6 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -138,25 +137,23 @@ export default function Footer() {
                 <h3>Useful Links</h3>
                 <ul>
                   <li>
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                   </li>
                   <li>
-                    <a href="about.html">About Us</a>
+                    <a href="/about">About Us</a>
                   </li>
                   <li>
-                    <a href="affiliates.html">Affiliate</a>
+                    <a href="/affiliate">Affiliate</a>
+                  </li>
+
+                  <li>
+                    <a href="/faq">FAQ</a>
                   </li>
                   <li>
-                    <a href="contact.html">Contact Us</a>
+                    <a href="/termsAndConditions">Terms and Conditions</a>
                   </li>
                   <li>
-                    <a href="faq.html">FAQ</a>
-                  </li>
-                  <li>
-                    <a href="terms-and-conditions.html">Terms and Conditions</a>
-                  </li>
-                  <li>
-                    <a href="get-started.html">Privacy & Policy</a>
+                    <a href="/termsAndConditions">Privacy & Policy</a>
                   </li>
                 </ul>
               </div>

@@ -199,9 +199,7 @@ export default function AdminInvestment() {
               />
               <div className="text-greetings">
                 <p>Admin</p>
-                <i class="icon-bell">
-                  <span>4</span>
-                </i>
+                <i class="icon-bell"></i>
               </div>
             </div>
             <ul>

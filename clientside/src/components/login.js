@@ -52,7 +52,7 @@ export default function Login({sendUserAuthToApp}) {
       <nav className="pr-nav">
         <div className="pr-nav-body"></div>
         <div className="pr-site-container">
-          <a href="index.html" class="pr-nav-brand">
+          <a href="/" class="pr-nav-brand">
             <img src="https://i.imgur.com/Ms0XoEK.png" />
           </a>
         </div>

@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 export default function Users() {
-    //variables
-    const windowName = process.env.REACT_APP_SERVER_NAME;
+  //variables
+  const windowName = process.env.REACT_APP_SERVER_NAME;
 
   //adjust screen
   //states
@@ -139,9 +139,7 @@ export default function Users() {
               />
               <div className="text-greetings">
                 <h1>Admin</h1>
-                <i class="icon-bell">
-                  <span>4</span>
-                </i>
+                <i class="icon-bell"></i>
               </div>
             </div>
             <ul>
@@ -207,10 +205,11 @@ export default function Users() {
                     <th>Email</th>
                     <th>First-Name </th>
                     <th>Last-Name</th>
+                    <th>User-name</th>
                     <th>Address</th>
                     <th>Country</th>
                     <th>Balance</th>
-                    <th>User-name</th>
+                    <th>Update</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -220,6 +219,7 @@ export default function Users() {
                       <td>{user.email}</td>
                       <td>{user.firstName}</td>
                       <td>{user.lastName}</td>
+                      <td>{user.username}</td>
                       <td>{user.address}</td>
                       <td>{user.country}</td>
                       <td>
@@ -240,18 +240,16 @@ export default function Users() {
                         />
                       </td>
                       <td>
-                        <button
+                        <i
+                          class="fa fa-upload"
                           onClick={() =>
                             handleBonusBalanceChange(
                               user._id,
                               user.bonusBalance
                             )
                           }
-                        >
-                          Update Users Balance
-                        </button>
+                        ></i>
                       </td>
-                      <td>{user.username}</td>
                     </tr>
                   ))}
                 </tbody>

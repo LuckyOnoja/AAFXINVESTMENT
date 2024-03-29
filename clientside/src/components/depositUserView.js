@@ -62,9 +62,9 @@ export default function DepositUserView() {
 
   useEffect(() => {
     const delay = 5000; // Delay in milliseconds (5 seconds)
-    
+
     const fetchUsers = async () => {
-      console.log(transactionData.UserId)
+      console.log(transactionData.UserId);
       try {
         const response = await axios.get(
           `${windowName}user/singleUser?UserId=${transactionData.UserId}`
@@ -83,7 +83,6 @@ export default function DepositUserView() {
     }, delay);
 
     return () => clearTimeout(timeoutId); // Clear timeout on unmount or re-render
-
   }, []);
 
   useEffect(() => {
@@ -159,9 +158,7 @@ export default function DepositUserView() {
               />
               <div className="text-greetings">
                 <h1>Admin</h1>
-                <i class="icon-bell">
-                  <span>4</span>
-                </i>
+                <i class="icon-bell"></i>
               </div>
             </div>
             <ul>

@@ -29,25 +29,6 @@ export default function AdminLogin({ adminAuthFromLogin }) {
     } else {
       setLoginMessage(" You are not the admin  ");
     }
-    // try {
-    //   const response = await axios.post(`${windowName}user/login`, {
-    //     email,
-    //     password,
-    //   });
-    //   const { token, user } = response.data;
-    //   setLoginMessage("Logged in successfully");
-    //   setUserData(user);
-    //   // Store the token in local storage or cookies
-    //   localStorage.setItem("token", token);
-    //   setUserId(user._id);
-    //   setUserAuth(true);
-    //   console.log("New User:", user._id);
-    //   setTimeout(() => {
-    //     navigate(`/dashboard/${user._id}`);
-    //   }, 3000);
-    // } catch (error) {
-    //   setLoginMessage("Error Logging in: " + error.message); // Display error message
-    // }
   };
   return (
     <body data-spy="scroll" data-offset="300">
@@ -61,7 +42,7 @@ export default function AdminLogin({ adminAuthFromLogin }) {
       <nav className="pr-nav">
         <div className="pr-nav-body"></div>
         <div className="pr-site-container">
-          <a href="index.html" class="pr-nav-brand">
+          <a href="/" class="pr-nav-brand">
             <img src="https://i.imgur.com/Ms0XoEK.png" />
           </a>
         </div>

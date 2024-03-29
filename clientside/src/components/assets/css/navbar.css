@@ -155,3 +155,20 @@ h6 {
   border-radius: 5px;
   margin-right: 10px;
 }
+
+/* style for users upload icon  */
+
+.fa-upload {
+  color: white;
+  padding: 10px;
+  background-color: rgb(139, 139, 139);
+  border-radius: 50px;
+  cursor: pointer;
+  align-self: center;
+}
+.fa-upload:hover {
+  background-color: rgb(81, 81, 81);
+}
+.fa-upload:active {
+  opacity: 0.7;
+}
