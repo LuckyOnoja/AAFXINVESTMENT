@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Logo from "./assets/FCC.svg";
 export default function Navbar() {
   //variables
   const windowName = process.env.REACT_APP_SERVER_NAME;
@@ -47,7 +48,9 @@ export default function Navbar() {
         <div className="pr-nav-body"></div>
         <div className="pr-site-container">
           <a href="/adminLogin" className="navLogo">
-            <img src="https://i.imgur.com/Ms0XoEK.png" />
+            <div className="imgcont">
+              <img src={Logo} />
+            </div>
           </a>
           <div></div>
           {showNavIcon && (

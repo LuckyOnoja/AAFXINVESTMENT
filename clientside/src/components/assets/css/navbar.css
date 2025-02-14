@@ -1,6 +1,13 @@
 .navLogo {
-  width: 30%;
+
 }
+.navLogo img {
+  width: 100px;
+}
+.imgCont {
+  background-color: #ff2c5f;
+}
+
 .pr-nav i {
   color: white;
   align-self: center;

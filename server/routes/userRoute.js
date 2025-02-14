@@ -135,7 +135,7 @@ router.put("/singleUserPut", async (req, res) => {
   try {
     const user = await UserModel.findByIdAndUpdate(
       _id,
-      { $set: req.body },
+      { $set: req.body }, // Assuming req.body contains the updated fields
       { new: true }
     );
     if (!user) {

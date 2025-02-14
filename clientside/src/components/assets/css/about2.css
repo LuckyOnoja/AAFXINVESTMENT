@@ -707,13 +707,13 @@ p {
 
 /*pr-nav*/
 .pr-nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   height: auto;
   min-height: 100px;
   z-index: 1000;
-  padding-bottom: 20px;
+ 
 }
 
 .pr-nav .pr-site-container {

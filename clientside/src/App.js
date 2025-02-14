@@ -38,10 +38,10 @@ import "./components/assets/css/Slideshow.css";
 //components
 import Firstpage from "./components/Firstpage.js";
 import Dashboard from "./components/dashboard";
-import About from "./components//about.js";
+import About from "./components/about.js";
 import Affiliate from "./components/affiliate.js";
 import Contact from "./components/contact.js";
-import Faq from "./components//faq.js";
+import Faq from "./components/faq.js";
 import Register from "./components/register.js";
 import Login from "./components/login.js";
 import TermsAndConditions from "./components/termsAndConditions.js";

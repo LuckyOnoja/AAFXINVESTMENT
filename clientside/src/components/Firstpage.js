@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import Logo from "./assets/FCC.svg"
 import Footer from "./Footer";
 export default function Firstpage() {
     //variables
@@ -30,7 +31,7 @@ export default function Firstpage() {
               <div className="bannerContainer hero-owl">
                 <div className="item">
                   <div className="v-hero-sec-banners-card">
-                    <img src="https://i.imgur.com/WDR4pff.png" />
+                    <img src={Logo} />
                   </div>
                 </div>
                 <div className="item">

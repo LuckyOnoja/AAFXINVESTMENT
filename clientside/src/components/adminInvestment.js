@@ -9,32 +9,7 @@ export default function AdminInvestment() {
   //states
   const [shownav, setShowNav] = useState(true);
   const [showNavIcon, setShowNavIcon] = useState(false);
-  const [investTransactions, setInvestTransactions] = useState([
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-  ]);
+  const [investTransactions, setInvestTransactions] = useState([]);
   const [dailyBonus, setDailyBonus] = useState(0);
   const [dailyBonusTransaction, setDailyBonusTransaction] = useState([
     {
@@ -290,7 +265,9 @@ export default function AdminInvestment() {
                           <input type="number" value={data.Amount} readOnly />
                         </td>
                         <td>{data.Date}</td>
-                        <td>{data.UserId}</td>
+                        <td>
+                          {data.firstName} {data.lastName}{" "}
+                        </td>
                         <td>{data._id}</td>
                         <td>{data.PlanType}</td>
                         <td>{data.InvestAmount}</td>
