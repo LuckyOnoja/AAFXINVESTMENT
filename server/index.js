@@ -7,21 +7,17 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const app = express();
-cors({
-  origin: [process.env.CLIENT_NAME],
-});
+
 
 app.use(express.json());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-
-  next();
-});
+app.use(
+  cors({
+    origin: process.env.CLIENT_NAME || "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 
 const userRoute = require("./routes/userRoute");
 const transactionsRoute = require("./routes/transactionsRoute");
@@ -32,10 +28,12 @@ app.use("/balance", dashboardBalancesRoute);
 
 const URL = process.env.DB_URL;
 mongoose
-  .connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(URL)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-app.listen(3001, () => {
-  console.log("THE BACKEND SERVER IS LIVE");
-});
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+  

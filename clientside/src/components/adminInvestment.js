@@ -266,7 +266,7 @@ export default function AdminInvestment() {
                         </td>
                         <td>{data.Date}</td>
                         <td>
-                          {data.firstName} {data.lastName}{" "}
+                          {data.UserId} 
                         </td>
                         <td>{data._id}</td>
                         <td>{data.PlanType}</td>

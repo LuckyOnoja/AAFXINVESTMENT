@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import popupModal from "./popupModal";
 export default function Admin() {
   //variables
   const windowName = process.env.REACT_APP_SERVER_NAME;
@@ -8,6 +9,7 @@ export default function Admin() {
   //adjust screen
   //states
   const [shownav, setShowNav] = useState(true);
+  const [show, setShow] = useState(false);
   const [showNavIcon, setShowNavIcon] = useState(false);
   const [users, setUsers] = useState();
   const [balances, setBalances] = useState([
@@ -106,6 +108,11 @@ export default function Admin() {
 
     fetchTransactions();
   }, []);
+
+  const handleAddBalanceModal = () => {
+    setShowNav(!show);
+  };
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 1000) {
@@ -279,6 +286,59 @@ export default function Admin() {
                   <h1>{depositTransactions}</h1>
                 </div>
               </Link>
+            </div>
+            <div className="boo-boo">
+              <div className="heading-text">
+                <h1>Users</h1>
+              </div>
+
+              <div class="wallet-trans">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Balance(USD)</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map((data, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>
+                            {data.firstName} {data.lastName}
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              value={data.Balance}
+                              readOnly
+                            />
+                          </td>
+                          <td>{data.Date}</td>
+
+                          <td>
+                            <div className="ad-ac">
+                              <a onClick={handleAddBalanceModal}>Add Balance</a>
+                            </div>
+                          </td>
+
+                        
+                          {show && (
+                            <popupModal
+                              id={data.id}
+                              name={data.firstName}
+                              balance={data.balance}
+                            />
+                          )}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div className="heading-text" style={{ marginTop: "30px" }}>
               <h1>#Assets </h1>
