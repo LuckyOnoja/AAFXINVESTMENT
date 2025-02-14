@@ -33,6 +33,9 @@
   .navLogo {
     width: 60%;
   }
+  .navLogo img {
+    max-width: 150px;
+  }
   .links {
     position: fixed;
     right: 0%;

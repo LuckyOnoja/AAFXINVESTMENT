@@ -104,12 +104,12 @@ router.post("/login", async (req, res) => {
 });
 router.get("/Users", async (req, res) => {
   try {
-    // Fetch user transactions from the database
+    // Fetch users
     const users = await UserModel.find();
 
     res.status(200).json({ users: users });
   } catch (error) {
-    console.error("Error fetching transactions:", error);
+    console.error("Error fetching users:", error);
     res.status(500).send("Internal Server Error");
   }
 });
@@ -135,7 +135,7 @@ router.put("/singleUserPut", async (req, res) => {
   try {
     const user = await UserModel.findByIdAndUpdate(
       _id,
-      { $set: req.body }, // Assuming req.body contains the updated fields
+      { $set: req.body },
       { new: true }
     );
     if (!user) {
