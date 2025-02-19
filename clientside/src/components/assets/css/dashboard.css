@@ -47,6 +47,26 @@ textarea {
   width: 100%;
 }
 
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #ecf0f1; /* Background color of the scrollbar track */
+/* Border radius of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bdc3c7; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Border radius of the scrollbar thumb */
+  border: 3px solid #ecf0f1; /* Adds padding around the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ea0a0; /* Color of the scrollbar thumb on hover */
+}
+
 .adjust {
   position: fixed;
   top: 0;
@@ -484,15 +504,151 @@ textarea {
 .wallet-trans {
   width: 100%;
   border: 2px solid #ebebeb;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: white;
   margin-top: 30px;
-  overflow: auto;
+  overflow: scroll;
   height: 80vh;
 }
-.wallet-trans::-webkit-scrollbar {
-  display: none;
+
+/* Hide scrollbar on small screens */
+@media (max-width: 768px) {
+  .wallet-trans {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  
+  .wallet-trans::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari and Opera */
+  }
 }
+
+
+
+
+/* Modal Background */
+.modal-show {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Modal Box */
+.modalBalance {
+  background: #ffffff;
+  padding: 28px 24px;
+  border-radius: 12px;
+  width: 420px;
+  max-width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  text-align: left;
+  animation: modalFade 0.3s ease-out;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal Title */
+.modalBalance h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 18px;
+}
+
+/* Close Button */
+.closeBalance {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.closeBalance:hover {
+  color: #333;
+  background: #f5f5f5;
+}
+
+/* Input Fields */
+.modalBalance input {
+  width: 100%;
+  padding: 12px 16px;
+  margin: 12px 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modalBalance input:focus {
+  border-color: #4285f4;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+  outline: none;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  background: #4285f4;
+  color: white;
+  padding: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 10px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.submit-btn:hover {
+  background: #3367d6;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* Optional: Label Styling */
+.modalBalance label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* Optional: Error Message Styling */
+.error-message {
+  color: #d93025;
+  font-size: 14px;
+  margin-top: 8px;
+  display: block;
+}
+
 @media (max-width: 768px) {
   .wall-o {
     width: 100%;

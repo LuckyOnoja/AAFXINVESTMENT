@@ -21,32 +21,7 @@ export default function Deposit({ dashboardUser }) {
     " " +
     new Date().toTimeString().slice(0, 8);
   const [recentTransaction, setRecentTransaction] = useState();
-  const [transactionData, setTransactionData] = useState([
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-  ]);
+  const [transactionData, setTransactionData] = useState([]);
   const [alipayValue, setAlipayValue] = useState(false);
 
   //functions
@@ -181,8 +156,7 @@ export default function Deposit({ dashboardUser }) {
               <img src="https://i.imgur.com/LTkw9xS.jpeg" alt="" />
               <div class="text-greetings">
                 <h1>{dashboardUser.username}</h1>
-                <i class="icon-bell">
-                </i>
+                <i class="icon-bell"></i>
               </div>
             </div>
             <ul>

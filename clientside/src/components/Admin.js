@@ -1,55 +1,29 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import popupModal from "./popupModal";
 export default function Admin() {
   //variables
   const windowName = process.env.REACT_APP_SERVER_NAME;
+  const paymentType = "Deposit";
+  const status = false;
+  const currentDate =
+  new Date().toISOString().slice(0, 10) +
+  " " +
+  new Date().toTimeString().slice(0, 8);
 
-  //adjust screen
   //states
   const [shownav, setShowNav] = useState(true);
-  const [show, setShow] = useState(false);
   const [showNavIcon, setShowNavIcon] = useState(false);
-  const [users, setUsers] = useState();
-  const [balances, setBalances] = useState([
-    {
-      UserId: 1111,
-      mainBalance: 0,
-      referrals: 0,
-      bonusBalance: 0,
-    },
-  ]);
-  const [transactionData, setTransactionData] = useState([
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [amount, setAmount] = useState("");
+  const [balances, setBalances] = useState([]);
+  const [transactionData, setTransactionData] = useState([]);
   const [calculatedBalance, setCalculatedBalance] = useState(0);
   const [withdrawTransactions, setWithdrawTransactions] = useState();
   const [depositTransactions, setDepositTransactions] = useState();
   const [investTransactions, setInvestTransactions] = useState();
+  const [recentTransaction, setRecentTransaction] = useState();
 
   //useEffects
 
@@ -68,6 +42,8 @@ export default function Admin() {
 
         // Set the calculated balance state
         setCalculatedBalance(totalBalance);
+
+        console.log("Fetched users:", users);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -109,10 +85,6 @@ export default function Admin() {
     fetchTransactions();
   }, []);
 
-  const handleAddBalanceModal = () => {
-    setShowNav(!show);
-  };
-
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 1000) {
@@ -140,6 +112,44 @@ export default function Admin() {
     setShowNav(!shownav);
     console.log(shownav);
   };
+
+  const handleSubmit = async (_id, name, balance, e) => {
+    e.preventDefault();
+
+    if (!amount) {
+      return alert("Please enter an amount.");
+    }
+
+    // Add the new amount to the existing balance
+    const updatedBalance = balance + Number(amount);
+
+    try {
+      await axios.put(`${windowName}user/singleUserPut?_id=${_id}`, {
+        balance: updatedBalance,
+      });
+      alert(`Successfully added $${amount} to ${name}'s balance.`);
+    } catch (error) {
+      alert(
+        `Could not add $${amount} to ${name}'s balance. Please check your network and try again.`
+      );
+    }
+
+    try {
+      const response = await axios.post(`${windowName}transaction/transact`, {
+        Amount: amount,
+        TransactionType: paymentType,
+        UserId: _id,
+        Date: currentDate,
+        Status: status,
+        Balance: balance,
+      });
+      const { transaction } = response.data;
+      setRecentTransaction(transaction);
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
+  };
+
 
   return (
     <body>
@@ -292,54 +302,108 @@ export default function Admin() {
                 <h1>Users</h1>
               </div>
 
-              <div class="wallet-trans">
-                <table class="table">
+              <div className="wallet-trans">
+                <table className="table">
                   <thead>
                     <tr>
                       <th>#</th>
                       <th>Name</th>
                       <th>Balance(USD)</th>
                       <th>Date</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((data, index) => {
-                      return (
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <td>
-                            {data.firstName} {data.lastName}
-                          </td>
-                          <td>
-                            <input
-                              type="number"
-                              value={data.Balance}
-                              readOnly
-                            />
-                          </td>
-                          <td>{data.Date}</td>
+                    {users.map((data, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>
+                          {data.firstName} {data.lastName}
+                        </td>
+                        <td>{`$${data.balance}`}</td>
+                        <td>
+                          <input
+                            type="date"
+                            value={
+                              new Date(data.date).toISOString().split("T")[0]
+                            }
+                            readOnly
+                          />
+                        </td>
 
-                          <td>
-                            <div className="ad-ac">
-                              <a onClick={handleAddBalanceModal}>Add Balance</a>
-                            </div>
-                          </td>
-
-                        
-                          {show && (
-                            <popupModal
-                              id={data.id}
-                              name={data.firstName}
-                              balance={data.balance}
-                            />
-                          )}
-                        </tr>
-                      );
-                    })}
+                        <td>
+                          <div className="ad-ac ">
+                            <a onClick={() => setSelectedUser(data)}>
+                              Add Balance
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
+            {selectedUser && (
+              <div className="modal-show" onClick={() => setSelectedUser(null)}>
+                <div
+                  className="modalBalance"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    className="closeBalance"
+                    onClick={() => setSelectedUser(null)}
+                  >
+                    ×
+                  </button>
+                  <h2>Add Funds</h2>
+                  <form
+                    onSubmit={(e) =>
+                      handleSubmit(
+                        selectedUser._id,
+                        selectedUser.firstName,
+                        selectedUser.balance,
+                        e
+                      )
+                    }
+                  >
+                    <input
+                      type="text"
+                      value={selectedUser.firstName}
+                      readOnly
+                    />
+                    <input
+                      type="text"
+                      value={`$${selectedUser.balance}`}
+                      readOnly
+                    />
+                    <input
+                      type="number"
+                      placeholder="Enter amount to add"
+                      min="1"
+                      required
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                    />
+                    <button
+                      type="submit"
+                      className="submit-btn"
+                      onClick={(e) =>
+                        handleSubmit(
+                          selectedUser._id,
+                          selectedUser.firstName,
+                          selectedUser.balance,
+                          e
+                        )
+                      }
+                    >
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+
             <div className="heading-text" style={{ marginTop: "30px" }}>
               <h1>#Assets </h1>
             </div>

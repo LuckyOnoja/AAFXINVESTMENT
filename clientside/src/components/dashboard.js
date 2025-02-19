@@ -17,107 +17,20 @@ export default function Dashboard({
   const userId = id;
   const [bonusBalance, setBonusBalance] = useState();
   const [mainBalance, setMainBalance] = useState();
-  const [balance, setBalance] = useState([
-    {
-      email: "",
-      firstName: "",
-      lastName: "",
-      address: "",
-      state: "",
-      country: "",
-      zipcode: "",
-      username: "",
-      password: "",
-      date: "",
-      balance: 0,
-      bonusBalance: 0,
-    },
-  ]);
-  const [user, setUser] = useState([
-    {
-      email: "",
-      firstName: "",
-      lastName: "",
-      address: "",
-      state: "",
-      country: "",
-      zipcode: "",
-      username: "",
-      password: "",
-      date: "",
-      balance: 0,
-      bonusBalance: 0,
-    },
-  ]);
+  const [balance, setBalance] = useState([]);
+  const [user, setUser] = useState([]);
   const [numberofreferrals, setNumberofreferrals] = useState(0);
   const [flag, setFlag] = useState(true);
   const [recentTransaction, setRecentTransaction] = useState();
-  const [transactionData, setTransactionData] = useState([
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-    {
-      UserId: "12222",
-      Amount: 20,
-      TransactionType: "",
-      walletAddress: "",
-      Date: "",
-      Status: false,
-    },
-  ]);
+  const [transactionData, setTransactionData] = useState([]);
   const [referralLink, setReferralLink] = useState("");
   const [referralCount, setReferralCount] = useState(0);
   const [investmentBalance, setInvestmentBalance] = useState(0);
 
   //functions
-  const uploadBalances = async () => {
-    try {
-      const response = await axios.put(
-        ` ${windowName}user/singleUserPut?_id=${id}`,
-        {
-          bonusBalance: bonusBalance,
-          balance: mainBalance,
-        }
-      );
-      console.log("User data updated successfully:", response.data);
-      setBalance(response.data);
-    } catch (error) {
-      console.error("Error updating user data:", error);
-    }
-  };
-
-  const fetchTransactions = async () => {
-    try {
-      const response = await axios.get(
-        `${windowName}transaction/userTransaction?userId=${id}`
-      );
-      const { transactions } = response.data;
-      const reversedTransactions = transactions.slice().reverse();
-      setTransactionData(reversedTransactions);
-      console.log("Fetched transactions:", transactionData);
-    } catch (error) {
-      console.error("Error fetching transactions:", error);
-    }
-  };
 
   //useEffects
 
-  useEffect(() => {
-    fetchTransactions();
-  }, [recentTransaction]);
   useEffect(() => {
     const fetchReferralDetails = async () => {
       try {
@@ -156,14 +69,41 @@ export default function Dashboard({
   }, []);
 
   useEffect(() => {
-    const totalInvestmentAmount = transactionData.reduce((acc, item) => {
-      if (item.Status) {
-        return acc + item.InvestAmount;
+    const fetchTransactions = async () => {
+      try {
+        const response = await axios.get(
+          `${windowName}transaction/userTransaction?userId=${id}`
+        );
+        const { transactions } = response.data;
+        const reversedTransactions = transactions.slice().reverse();
+        setTransactionData(reversedTransactions);
+        console.log("Fetched transactions:", reversedTransactions);
+
+        const totalInvestmentAmount = reversedTransactions.reduce(
+          (acc, item) => {
+            if (item.Status) {
+              const investAmount = Number(item.InvestAmount) || 0; // Converting to number safely
+              return acc + investAmount;
+            }
+            return acc;
+          },
+          0
+        );
+
+        // Rounding to two decimal places and ensure it's still a number
+        const roundedInvestmentAmount = parseFloat(
+          totalInvestmentAmount.toFixed(2)
+        );
+
+        setInvestmentBalance(roundedInvestmentAmount);
+        console.log("Investment balance:", roundedInvestmentAmount);
+        sendInvestmentBalanceToApp(roundedInvestmentAmount);
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
       }
-      return acc;
-    }, 0);
-    setInvestmentBalance(totalInvestmentAmount);
-    sendInvestmentBalanceToApp(totalInvestmentAmount);
+    };
+
+    fetchTransactions();
   }, []);
 
   useEffect(() => {
@@ -176,10 +116,30 @@ export default function Dashboard({
       return acc;
     }, 0);
 
+    const calculateAllBalance =
+      investmentBalance + totalAmount + referallAmount + bonusBalance;
+
+    // Rounding to two decimal places and ensure it's still a number
+    const roundedCalculatedBalance = parseFloat(calculateAllBalance.toFixed(2));
+
     // Update main balance state
-    setMainBalance(
-      investmentBalance + totalAmount + referallAmount + bonusBalance
-    );
+    setMainBalance(roundedCalculatedBalance);
+
+    const uploadBalances = async () => {
+      try {
+        const response = await axios.put(
+          ` ${windowName}user/singleUserPut?_id=${id}`,
+          {
+            bonusBalance: bonusBalance,
+            balance: mainBalance,
+          }
+        );
+        console.log("User data updated successfully:", response.data);
+        setBalance(response.data);
+      } catch (error) {
+        console.error("Error updating user data:", error);
+      }
+    };
 
     // Call uploadBalances function
     uploadBalances();

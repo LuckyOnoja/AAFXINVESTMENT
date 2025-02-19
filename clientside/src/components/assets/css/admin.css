@@ -152,27 +152,45 @@
   color: #ff2c5f !important;
 }
 
-.wallet-trans {
-  overflow-x: auto;
-  max-width: 1170px;
-}
 
 .ad-ac {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
 }
-.ad-ac a {
-  width: 90px;
-  height: 50px;
-  background-color: #fbf0d9;
-  border-radius: 5px;
-  display: flex;
 
+.ad-ac a {
+  width: 100px;
+  height: 48px;
+  background-color: #dbebfb;
+  border-radius: 8px;
+  display: flex;
   align-items: center;
-  color: black;
   justify-content: center;
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.ad-ac a:hover {
+  background-color: #d0e4f5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ad-ac a:active {
+  transform: translateY(0);
+  background-color: #c7e1f0;
+}
+
+.ad-ac a i, 
+.ad-ac a svg {
+  margin-right: 6px;
+  font-size: 16px;
 }
 
 tr td:nth-child(8),
@@ -183,7 +201,7 @@ tr td:nth-child(7) {
 tr td input {
   border: none !important;
 
-  color: red;
+
 
   height: 20px;
 

@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   zipcode: { type: Number, required: true },
   username: { type: String, required: true },
   password: { type: String, required: true },
-  date: { type: String, required: true },
+  date: { type: Date, default: Date.now },
   balance: { type: Number, required: true },
   bonusBalance: { type: Number, required: true },
   referralCode: { type: String, unique: true },

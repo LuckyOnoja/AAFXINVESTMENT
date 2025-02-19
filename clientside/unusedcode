@@ -1,0 +1,11 @@
+   try {
+      const response = await axios.put(
+        ` ${windowName}transaction/dailyBonus?_id=${_id}`,
+        {
+          InvestAmount: newBonusBalance,
+        }
+      );
+      console.log("dailyBonus balance updated successfully:", response.data);
+    } catch (error) {
+      console.error("Error updating bonus balance:", error);
+    }
