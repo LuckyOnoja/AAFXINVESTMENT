@@ -31,31 +31,27 @@ export default function Dashboard({
 
   //useEffects
 
+  // Fetch referral details
   useEffect(() => {
     const fetchReferralDetails = async () => {
       try {
-        const referralDetails = await axios.get(
-          `${windowName}user/referralLink?_id=${id}`
-        );
-
+        const referralDetails = await axios.get(`${windowName}user/referralLink?_id=${id}`);
         const { referralLink, count } = referralDetails.data;
-
         setReferralLink(referralLink);
         setReferralCount(count);
       } catch (error) {
-        console.error("Error Fetching Referral details");
+        console.error("Error Fetching Referral details", error);
       }
     };
 
     fetchReferralDetails();
   }, [id]);
 
+  // Fetch user data
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          `${windowName}user/singleUser?_id=${id}`
-        );
+        const response = await axios.get(`${windowName}user/singleUser?_id=${id}`);
         setUser(response.data.user);
         sendDashboardUsertoApp(response.data.user);
         setBonusBalance(response.data.user.bonusBalance);
@@ -66,37 +62,26 @@ export default function Dashboard({
     };
 
     fetchUserData();
-  }, []);
+  }, [id, sendDashboardUsertoApp]);
 
+  // Fetch transactions
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await axios.get(
-          `${windowName}transaction/userTransaction?userId=${id}`
-        );
+        const response = await axios.get(`${windowName}transaction/userTransaction?userId=${id}`);
         const { transactions } = response.data;
         const reversedTransactions = transactions.slice().reverse();
         setTransactionData(reversedTransactions);
-        console.log("Fetched transactions:", reversedTransactions);
 
-        const totalInvestmentAmount = reversedTransactions.reduce(
-          (acc, item) => {
-            if (item.Status) {
-              const investAmount = Number(item.InvestAmount) || 0; // Converting to number safely
-              return acc + investAmount;
-            }
-            return acc;
-          },
-          0
-        );
+        const totalInvestmentAmount = reversedTransactions.reduce((acc, item) => {
+          if (item.Status) {
+            return acc + (Number(item.InvestAmount) || 0);
+          }
+          return acc;
+        }, 0);
 
-        // Rounding to two decimal places and ensure it's still a number
-        const roundedInvestmentAmount = parseFloat(
-          totalInvestmentAmount.toFixed(2)
-        );
-
+        const roundedInvestmentAmount = parseFloat(totalInvestmentAmount.toFixed(2));
         setInvestmentBalance(roundedInvestmentAmount);
-        console.log("Investment balance:", roundedInvestmentAmount);
         sendInvestmentBalanceToApp(roundedInvestmentAmount);
       } catch (error) {
         console.error("Error fetching transactions:", error);
@@ -104,46 +89,39 @@ export default function Dashboard({
     };
 
     fetchTransactions();
-  }, []);
+  }, [id, sendInvestmentBalanceToApp]);
 
+  // Calculate and update main balance
   useEffect(() => {
-    // Calculate total amount if any transaction has Status true
-    const referallAmount = referralCount * 50;
-    const totalAmount = transactionData.reduce((acc, item) => {
-      if (item.Status) {
-        return acc + item.Amount;
-      }
-      return acc;
-    }, 0);
+    const calculateAllBalance = () => {
+      const referralAmount = referralCount * 50;
+      const totalAmount = transactionData.reduce((acc, item) => {
+        if (item.Status) {
+          return acc + item.Amount;
+        }
+        return acc;
+      }, 0);
 
-    const calculateAllBalance =
-      investmentBalance + totalAmount + referallAmount + bonusBalance;
+      return investmentBalance + totalAmount + referralAmount + bonusBalance;
+    };
 
-    // Rounding to two decimal places and ensure it's still a number
-    const roundedCalculatedBalance = parseFloat(calculateAllBalance.toFixed(2));
-
-    // Update main balance state
+    const roundedCalculatedBalance = parseFloat(calculateAllBalance().toFixed(2));
     setMainBalance(roundedCalculatedBalance);
 
     const uploadBalances = async () => {
       try {
-        const response = await axios.put(
-          ` ${windowName}user/singleUserPut?_id=${id}`,
-          {
-            bonusBalance: bonusBalance,
-            balance: mainBalance,
-          }
-        );
+        const response = await axios.put(`${windowName}user/singleUserPut?_id=${id}`, {
+          bonusBalance: bonusBalance,
+          balance: roundedCalculatedBalance,
+        });
         console.log("User data updated successfully:", response.data);
-        setBalance(response.data);
       } catch (error) {
         console.error("Error updating user data:", error);
       }
     };
 
-    // Call uploadBalances function
     uploadBalances();
-  }, [referralCount, transactionData, bonusBalance]);
+  }, [referralCount, transactionData, bonusBalance, investmentBalance, id]);
 
   //settings for screen
   //states

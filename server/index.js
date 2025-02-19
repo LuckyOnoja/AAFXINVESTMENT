@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 
-
 app.use(express.json());
 
 app.use(
@@ -32,8 +31,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-  const PORT = process.env.PORT || 7500;
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-  
+const PORT = process.env.PORT || 7500;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
